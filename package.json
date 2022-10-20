@@ -1,0 +1,76 @@
+{
+  "name": "Minesweeper",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "@fortawesome/fontawesome-pro": "^6.1.1",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/pro-duotone-svg-icons": "^6.1.1",
+    "@fortawesome/pro-light-svg-icons": "^6.1.1",
+    "@fortawesome/pro-regular-svg-icons": "^6.1.1",
+    "@fortawesome/pro-solid-svg-icons": "^6.1.1",
+    "@fortawesome/pro-thin-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
+    "@types/react": "18",
+    "@types/react-dom": "18",
+    "axios": "^0.21.1",
+    "framer-motion": "^7.0.1",
+    "lodash": "^4.17.21",
+    "lodash.permutations": "^1.0.0",
+    "lodash.throttle": "^4.1.1",
+    "react": "18",
+    "react-dom": "^18.2.0",
+    "react-error-overlay": "6.0.9",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "6",
+    "react-scripts": "5.0.1",
+    "recoil": "^0.7.6",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.37.0",
+    "styled-components": "^5.3.3",
+    "typescript": "^4.3.5",
+    "web-vitals": "^1.1.2"
+  },
+  "resolutions": {
+    "react-error-overlay": "6.0.9"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer build/static/js/*.js",
+    "dev": "react-scripts start"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.172",
+    "@types/lodash.throttle": "^4.1.6",
+    "@types/react-lazyload": "^3.1.1",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/react-scroll": "^1.8.3",
+    "@types/recoil": "^0.0.9",
+    "@types/styled-components": "^5.1.17",
+    "cross-env": "^7.0.3",
+    "source-map-explorer": "^2.5.2",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "webpack-cli": "^4.7.2"
+  }
+}
