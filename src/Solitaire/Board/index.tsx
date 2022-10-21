@@ -6,13 +6,13 @@ import Desk from "../Desk";
 import Finish from "../Finish";
 
 function Solitaire() {
-  const { board, dealHand } = useBoard();
+  const { board, dealHand, resetGame } = useBoard();
 
   return (
     <Style.StyledBoard>
-      <Toolbar />
+      <Toolbar resetGame={resetGame} />
       <Style.DividerElement />
-      <Style.Felt>
+      <Style.Felt id="solitaire-board">
         <Style.TopSection>
           <Deck board={board} dealHand={dealHand} />
           <Finish board={board} />

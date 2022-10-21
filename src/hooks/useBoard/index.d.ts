@@ -6,15 +6,11 @@ export interface ICard {
   currentLocation: string;
 }
 
-export interface IPile {
-  cards: Array<ICard>;
-}
-
 export interface IBoard {
   types: ["c", "d", "h", "s"];
   colors: { c: string; d: string; h: string; s: string };
-  finish: Array<IPile>;
-  desk: Array<IPile>;
+  finish: Array<Array<ICard>>;
+  desk: Array<Array<ICard>>;
   pile: Array<ICard>;
   deal: Array<ICard>;
 }

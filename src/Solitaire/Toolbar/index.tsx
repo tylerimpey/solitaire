@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import booleanWithId from "../../state/atoms/booleanWithId";
 import Style from "./index.style";
 
 const View = (props: any) => {
@@ -13,14 +15,8 @@ const View = (props: any) => {
         <Style.LineItem onClick={() => props.handleChangeLevel("beginner")}>
           Beginner
         </Style.LineItem>
-        <Style.LineItem onClick={() => props.handleChangeLevel("intermediate")}>
-          Intermediate
-        </Style.LineItem>
-        <Style.LineItem onClick={() => props.handleChangeLevel("expert")}>
-          Expert
-        </Style.LineItem>
         <Style.Separator />
-        <Style.LineItem onClick={props.freshBoard}>New Game</Style.LineItem>
+        <Style.LineItem onClick={props.resetGame}>New Game</Style.LineItem>
       </Style.Menu>
     </Style.Button>
   );
@@ -71,7 +67,7 @@ const Help = (props: any) => {
   );
 };
 
-const Toolbar = ({ handleChangeLevel, freshBoard }: any) => {
+const Toolbar = ({ handleChangeLevel, resetGame }: any) => {
   const [selected, setSelected] = useState<boolean>(false);
   const [lastHovered, setLastHovered] = useState<string | null>(null);
 
@@ -81,7 +77,7 @@ const Toolbar = ({ handleChangeLevel, freshBoard }: any) => {
     lastHovered,
     setLastHovered,
     handleChangeLevel,
-    freshBoard,
+    resetGame,
   };
 
   return (

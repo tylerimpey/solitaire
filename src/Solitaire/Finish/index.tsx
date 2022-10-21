@@ -19,7 +19,7 @@ const Stack = ({ stack, index }: { stack: Array<any>; index: any }) => {
   }, [isHovered]);
 
   return (
-    <Style.Ace id={`stack-${index}`} ref={ref}>
+    <Style.Ace id={`finish-${index}`} ref={ref}>
       {stack.length > 0 && <Card className={stack.at(-1).classes.join(" ")} />}
     </Style.Ace>
   );
@@ -29,9 +29,7 @@ const Finish = ({ board }: any) => {
   return (
     <Style.Container>
       {_.map(board.finish, (stack, index) => {
-        return (
-          <Stack key={`finish-${index}`} stack={stack.cards} index={index} />
-        );
+        return <Stack key={`finish-${index}`} stack={stack} index={index} />;
       })}
     </Style.Container>
   );

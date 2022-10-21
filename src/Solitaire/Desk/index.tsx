@@ -20,9 +20,7 @@ const Stack = ({ stack, index }: any) => {
 
   return (
     <Style.Stack id={`stack-${index}`} ref={ref}>
-      {stack.cards.length > 0 && (
-        <RecursiveCard deck={stack.cards} stack={index} />
-      )}
+      {stack.length > 0 && <RecursiveCard deck={stack} stack={index} />}
     </Style.Stack>
   );
 };
