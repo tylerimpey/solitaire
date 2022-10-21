@@ -11,11 +11,7 @@ const Stack = ({ stack, index }: any) => {
   const setDestination = useSetRecoilState(stringWithId("destination", null));
 
   useEffect(() => {
-    if (isHovered) {
-      setDestination(`stack-${index}`);
-    } else {
-      setDestination(null);
-    }
+    setDestination(isHovered ? `stack-${index}` : null);
   }, [isHovered]);
 
   return (
@@ -26,20 +22,17 @@ const Stack = ({ stack, index }: any) => {
 };
 
 const RecursiveCard = ({ deck, stack }: any) => {
-  if (deck.length === 1) {
-    return <MoveableCard {...deck[0]} location={`stack-${stack}`} />;
-  }
-
   const card = deck[0];
   const newDeck = deck.slice(1);
 
   return (
-    <Card
-      className={card.classes?.join(" ")}
-      key={`card-${card.type}-${card.number}`}
+    <MoveableCard
+      {...card}
+      location={`stack-${stack}`}
+      key={`card-${card.type}-${card.number}-${card.facingUp}`}
     >
       {newDeck.length > 0 && <RecursiveCard deck={newDeck} stack={stack} />}
-    </Card>
+    </MoveableCard>
   );
 };
 

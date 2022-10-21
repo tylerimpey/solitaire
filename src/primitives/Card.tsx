@@ -1,11 +1,10 @@
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import useMousePosition from "../hooks/useMousePosition";
+import stringWithId from "../state/atoms/stringWithId";
+import objectWithId from "../state/atoms/objectWithId";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import stringWithId from "../state/atoms/stringWithId";
-import { ICard } from "../hooks/useBoard/index.d";
 import _ from "lodash";
-import objectWithId from "../state/atoms/objectWithId";
 
 const SUITS = [
   { suit: "s", number: 4 },
@@ -56,7 +55,7 @@ export const Card = styled.div`
   }
 
   &.front {
-    cursor: grab;
+    cursor: pointer;
     background-image: url(https://cdn.pr0xy.io/friday-beers/website/cards.png);
 
     ${_.map(SUITS, ({ suit, number }) => {
@@ -82,7 +81,7 @@ export const Card = styled.div`
   }
 `;
 
-const MoveableCard = (card: ICard) => {
+const MoveableCard = (card: any) => {
   const [moving, setMoving] = useState<boolean>(false);
   const { clientX, clientY } = useMousePosition();
   const [cardClass = [], setCardClass] = useState(card.classes);
@@ -144,7 +143,9 @@ const MoveableCard = (card: ICard) => {
       onMouseDown={captureMove}
       ref={ref}
       onMouseUp={captureDrop}
-    />
+    >
+      {card.children}
+    </Card>
   );
 };
 

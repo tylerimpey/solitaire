@@ -4,17 +4,15 @@ import _ from "lodash";
 import { useRecoilValue } from "recoil";
 import objectWithId from "../../state/atoms/objectWithId";
 
-const freshBoard: IBoard = {
-  types: ["c", "d", "h", "s"],
-  colors: { c: "black", d: "red", h: "red", s: "black" },
-  pile: [],
-  deal: [],
-  finish: [],
-  desk: [],
-};
-
 const useBoard = () => {
-  const [board, setBoard] = useState<IBoard>({ ...freshBoard });
+  const [board, setBoard] = useState<IBoard>({
+    types: ["c", "d", "h", "s"],
+    colors: { c: "black", d: "red", h: "red", s: "black" },
+    pile: [],
+    deal: [],
+    finish: [],
+    desk: [],
+  });
   const drop = useRecoilValue(objectWithId("drop", {}));
 
   /** @description Flips a card in the current location. */
@@ -73,7 +71,8 @@ const useBoard = () => {
   /** @description Resets the game board to a fresh game. */
   const resetGame = () => {
     const update: IBoard = {
-      ...freshBoard,
+      types: ["c", "d", "h", "s"],
+      colors: { c: "black", d: "red", h: "red", s: "black" },
       finish: _.map(_.range(0, 4), () => []),
       desk: _.map(_.range(0, 7), () => []),
       pile: [],
@@ -165,30 +164,48 @@ const useBoard = () => {
       return;
     } else if (from === "deal" && /^stack-\d+$/.test(to)) {
       const whichStack = parseInt(to.split("-")[1]);
-      const card: ICard = update.deal.pop()!;
-      card.currentLocation = to;
-      update.desk[whichStack].push(card);
+      const moving: ICard = update.deal.pop()!;
+      moving.currentLocation = to;
+      update.desk[whichStack].push(moving);
     } else if (from === "deal" && /^finish-\d+$/.test(to)) {
       const whichFinish = parseInt(to.split("-")[1]);
-      const card: ICard = update.deal.pop()!;
-      card.currentLocation = to;
-      update.finish[whichFinish].push(card);
+      const moving: ICard = update.deal.pop()!;
+      moving.currentLocation = to;
+      update.finish[whichFinish].push(moving);
 
       gameFinish();
     } else if (/^stack-\d+$/.test(from) && /^stack-\d+$/.test(to)) {
       const fromStack = parseInt(from.split("-")[1]);
       const toStack = parseInt(to.split("-")[1]);
-      const card: ICard = update.desk[fromStack].pop()!;
-      card.currentLocation = to;
-      update.desk[toStack].push(card);
+
+      const index = update.desk[fromStack].findIndex(
+        (c) => c.type === card.type && c.number === card.number
+      );
+
+      const moving: Array<ICard> = update.desk[fromStack].splice(index)!;
+      update.desk[toStack].push(
+        ...moving.map((c) => {
+          return { ...c, currentLocation: to };
+        })
+      );
 
       flipLocationTopCard(update, from);
     } else if (/^stack-\d+$/.test(from) && /^finish-\d+$/.test(to)) {
       const fromStack = parseInt(from.split("-")[1]);
       const toFinish = parseInt(to.split("-")[1]);
-      const card: ICard = update.desk[fromStack].pop()!;
-      card.currentLocation = to;
-      update.finish[toFinish].push(card);
+      const moving: ICard = update.desk[fromStack].pop()!;
+      const recentFinish: ICard = board.finish[toFinish].at(-1)!;
+
+      if (
+        moving.number !== 1 &&
+        (moving.type !== recentFinish.type ||
+          moving.number !== recentFinish.number + 1)
+      ) {
+        return;
+      }
+
+      moving.currentLocation = to;
+      update.finish[toFinish].push(moving);
 
       flipLocationTopCard(update, from);
       gameFinish();
